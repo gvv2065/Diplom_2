@@ -3,7 +3,7 @@ import allure
 
 from api.Api import Api
 from helper import generate_user_create_request
-from asserts.common_asserts import assert_response, assert_response_200
+from asserts.common_asserts import assert_response
 from data import User
 from models.models import UserCreateRequest
 
