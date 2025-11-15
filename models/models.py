@@ -10,4 +10,8 @@ class UserCreateRequest:
 class UserLoginRequest:
     email: str
     password: str
+    
+@dataclass
+class OrderRequest:
+    ingredients: list
         
