@@ -11,12 +11,16 @@ from models.models import UserCreateRequest
 class TestCreateUser:
     @allure.title("Пользователь успешно создается")
     def test_create_user(self):
-        response = Api.create_user(generate_user_create_request())
+        user_request = generate_user_create_request()
+        response = Api.create_user(user_request)
         assert_response(response, 200)
+        assert response.json().get("success") is True
+        assert response.json().get("user").get("name") == user_request.name
+        assert response.json().get("user").get("email") == user_request.email
     
     @allure.title("Если пользователь существует, вернется код ответа 403")
-    def test_create_existed_user(self):
-        response = Api.create_user(UserCreateRequest(User.EMAIL, User.PASSWORD, "Vitaly"))
+    def test_create_existed_user(self, generated_user):
+        response = Api.create_user(generated_user)
         resp = assert_response(response, 403)
         assert resp == {"message": "User already exists", "success": False}
 
